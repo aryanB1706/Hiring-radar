@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.pytest_cache/
+.ruff_cache/
+*.log
+
+# Local-only notes
+PROGRESS.md
+Project4_HiringRadar_Prompts.md
