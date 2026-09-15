@@ -24,7 +24,31 @@ Host ports: postgres `5434`, redis `6380`, api `8000` (override via `POSTGRES_HO
 ```bash
 python3.12 -m venv backend/.venv
 backend/.venv/bin/pip install -r backend/requirements-dev.txt
-make test      # pytest (no DB/Redis needed)
+make db-up     # tests need the compose Postgres (uses a throwaway <db>_test database)
+make test      # pytest
 make lint      # ruff check + format check
 make fmt       # auto-fix
 ```
+
+## Data model
+
+Migrations: `make migrate` (`alembic upgrade head`); `alembic downgrade base` undoes everything.
+`audit_event` is append-only: a database trigger rejects UPDATE, DELETE and TRUNCATE.
+
+```mermaid
+erDiagram
+    source ||--o{ post : "has"
+    post ||--o| lead : "classified as"
+    party |o--o{ lead : "posted by"
+    lead |o--o{ lead : "duplicate_of"
+    lead ||--o{ enrichment : "enriched by"
+    lead ||--o{ feedback : "rated by"
+    lead ||--o{ agent_run : "qualified in"
+    agent_identity ||--o{ agent_run : "executes"
+    agent_run ||--o{ agent_step : "has"
+    agent_identity ||--o{ approval : "requests"
+    audit_event
+    llm_call_log
+```
+
+`audit_event` and `llm_call_log` have no foreign keys on purpose: they are logs that must outlive the rows they describe.

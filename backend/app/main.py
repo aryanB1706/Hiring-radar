@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from app.api.health import router as health_router
 from app.core.config import get_settings
 from app.core.logging import configure_logging
+from app.db.session import make_session_factory
 
 
 @asynccontextmanager
@@ -17,6 +18,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = get_settings()
     # Neither call connects yet; connections open on first use.
     app.state.engine = create_async_engine(settings.database_url, pool_pre_ping=True)
+    app.state.session_factory = make_session_factory(app.state.engine)
     app.state.redis = Redis.from_url(settings.redis_url)
     yield
     await app.state.engine.dispose()
