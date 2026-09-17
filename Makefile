@@ -1,6 +1,6 @@
 COMPOSE ?= docker compose
 
-.PHONY: up down logs db-up migrate test lint fmt
+.PHONY: up down logs db-up redis-up migrate test lint fmt
 
 up:
 	$(COMPOSE) up --build -d
@@ -13,6 +13,9 @@ logs:
 
 db-up:
 	$(COMPOSE) up -d postgres
+
+redis-up:
+	$(COMPOSE) up -d redis
 
 migrate:
 	cd backend && .venv/bin/alembic upgrade head

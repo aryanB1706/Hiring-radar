@@ -24,11 +24,20 @@ Host ports: postgres `5434`, redis `6380`, api `8000` (override via `POSTGRES_HO
 ```bash
 python3.12 -m venv backend/.venv
 backend/.venv/bin/pip install -r backend/requirements-dev.txt
-make db-up     # tests need the compose Postgres (uses a throwaway <db>_test database)
+make db-up redis-up   # tests need the compose Postgres + Redis (throwaway <db>_test database)
 make test      # pytest
 make lint      # ruff check + format check
 make fmt       # auto-fix
 ```
+
+## LLM gateway
+
+All model access goes through `LLMClient` (`backend/app/llm/`); business code never imports a provider SDK.
+Build one with `app.llm.factory.build_llm_client(...)`. Tests use `FakeLLMClient`; CI never calls the network.
+
+Live check with a real key (free tier): put `GEMINI_API_KEY` in `.env`, then
+`make migrate && cd backend && .venv/bin/pytest -m live -s`. Check your free-tier limit in
+[Google AI Studio](https://aistudio.google.com/rate-limit) and set `LLM_RPM_LIMIT` accordingly.
 
 ## Data model
 

@@ -4,16 +4,19 @@ Every test runs inside a transaction that is rolled back, so tests never see eac
 Requires the compose Postgres: `make db-up` (or `make up`).
 """
 
+import uuid
 from collections.abc import AsyncIterator, Iterator
 from pathlib import Path
 
 import pytest
 from alembic import command
 from alembic.config import Config
+from redis.asyncio import Redis
+from redis.exceptions import RedisError
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL, make_url
 from sqlalchemy.exc import OperationalError
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
 from app.core.config import get_settings
@@ -70,3 +73,31 @@ async def session(migrated_db_url: URL) -> AsyncIterator[AsyncSession]:
             yield s
         await outer.rollback()
     await engine.dispose()
+
+
+@pytest.fixture
+async def committing_session_factory(
+    migrated_db_url: URL,
+) -> AsyncIterator[async_sessionmaker[AsyncSession]]:
+    """Sessions that really commit (for code that opens its own transaction). Tests using this
+    must clean up the rows they create."""
+    engine = create_async_engine(migrated_db_url, poolclass=NullPool)
+    yield async_sessionmaker(engine, expire_on_commit=False)
+    await engine.dispose()
+
+
+@pytest.fixture
+async def redis_client() -> AsyncIterator[Redis]:
+    client = Redis.from_url(get_settings().redis_url)
+    try:
+        await client.ping()
+    except (RedisError, OSError) as exc:
+        pytest.exit(f"Redis is not reachable ({exc}). Start it with `make redis-up`.", 1)
+    yield client
+    await client.aclose()
+
+
+@pytest.fixture
+def key_prefix() -> str:
+    """A unique Redis key prefix per test, so tests never share limiter/cache state."""
+    return f"test:{uuid.uuid4().hex}:"
