@@ -30,6 +30,22 @@ make lint      # ruff check + format check
 make fmt       # auto-fix
 ```
 
+## Collectors
+
+Allowed sources only: Hacker News "Who is hiring?" (Algolia API), Reddit (official API via PRAW), RSS/Atom feeds. No scraping of
+LinkedIn/Instagram/X ([ADR 0001](docs/adr/0001-no-social-scraping.md)); for those, paste a post via `POST /api/captures` or import a
+CSV via `POST /api/captures/csv`.
+
+```bash
+cd backend
+.venv/bin/python -m app.jobs.ingest --source hn            # fetch + store (incremental)
+.venv/bin/python -m app.jobs.ingest --source hn --full     # re-read everything; second run inserts 0
+.venv/bin/python -m app.jobs.ingest --source rss --feed https://example.com/jobs.xml
+make up COMPOSE=docker-compose                              # also starts a Celery worker + beat (every INGEST_INTERVAL_HOURS)
+```
+
+Reddit needs `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` (read-only app, https://www.reddit.com/prefs/apps) in `.env`.
+
 ## LLM gateway
 
 All model access goes through `LLMClient` (`backend/app/llm/`); business code never imports a provider SDK.

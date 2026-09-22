@@ -7,6 +7,7 @@ from fastapi import FastAPI, Request, Response
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import create_async_engine
 
+from app.api.captures import router as captures_router
 from app.api.health import router as health_router
 from app.core.config import get_settings
 from app.core.logging import configure_logging
@@ -45,4 +46,5 @@ def create_app() -> FastAPI:
     app = FastAPI(title="Hiring Radar", lifespan=lifespan)
     app.middleware("http")(request_id_middleware)
     app.include_router(health_router, prefix="/api")
+    app.include_router(captures_router, prefix="/api")
     return app

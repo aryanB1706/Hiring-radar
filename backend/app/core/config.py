@@ -29,6 +29,23 @@ class Settings(BaseSettings):
     llm_timeout_seconds: float = 60.0
     llm_pricing: dict[str, ModelPrice] = {}  # JSON: {"<model>": {"input_per_mtok": .., ...}}
 
+    # Collectors (see app/collectors)
+    http_user_agent: str = (
+        "HiringRadar/0.1 (+https://github.com/aryanB1706/Hiring-radar; portfolio project)"
+    )
+    http_timeout_seconds: float = 20.0
+    http_min_delay_seconds: float = 1.0  # minimum gap between requests to the same host
+    reddit_client_id: str | None = None
+    reddit_client_secret: SecretStr | None = None
+    reddit_user_agent: str = "script:hiring-radar:0.1 (by /u/your_reddit_username)"
+    subreddits: str = "forhire,hiring,developersIndia,remotepython"  # comma-separated
+    ingest_interval_hours: float = 6.0
+
+    @property
+    def subreddit_list(self) -> list[str]:
+        names = (name.strip().removeprefix("r/") for name in self.subreddits.split(","))
+        return [name for name in names if name]
+
 
 @lru_cache
 def get_settings() -> Settings:

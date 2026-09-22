@@ -1,3 +1,21 @@
+x-app-env: &app-env
+  APP_ENV: dev
+  LOG_LEVEL: INFO
+  DATABASE_URL: postgresql+psycopg://hiring:hiring@postgres:5432/hiring_radar
+  REDIS_URL: redis://redis:6379/0
+  GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+  REDDIT_CLIENT_ID: ${REDDIT_CLIENT_ID:-}
+  REDDIT_CLIENT_SECRET: ${REDDIT_CLIENT_SECRET:-}
+  REDDIT_USER_AGENT: ${REDDIT_USER_AGENT:-script:hiring-radar:0.1 (by /u/your_reddit_username)}
+  SUBREDDITS: ${SUBREDDITS:-forhire,hiring,developersIndia,remotepython}
+  INGEST_INTERVAL_HOURS: ${INGEST_INTERVAL_HOURS:-6}
+
+x-app-depends: &app-depends
+  postgres:
+    condition: service_healthy
+  redis:
+    condition: service_healthy
+
 services:
   postgres:
     image: pgvector/pgvector:pg16
@@ -28,20 +46,28 @@ services:
   api:
     build: ./backend
     command: uvicorn app.main:create_app --factory --host 0.0.0.0 --port 8000 --reload
-    environment:
-      APP_ENV: dev
-      LOG_LEVEL: INFO
-      DATABASE_URL: postgresql+psycopg://hiring:hiring@postgres:5432/hiring_radar
-      REDIS_URL: redis://redis:6379/0
+    environment: *app-env
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+    depends_on: *app-depends
+
+  worker:
+    build: ./backend
+    command: celery -A app.jobs.celery_app worker --loglevel=INFO
+    environment: *app-env
+    volumes:
+      - ./backend:/app
+    depends_on: *app-depends
+
+  beat:
+    build: ./backend
+    command: celery -A app.jobs.celery_app beat --loglevel=INFO --schedule /tmp/celerybeat-schedule
+    environment: *app-env
+    volumes:
+      - ./backend:/app
+    depends_on: *app-depends
 
 volumes:
   pgdata:

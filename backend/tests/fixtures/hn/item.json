@@ -1,0 +1,81 @@
+{
+ "id": 49922569,
+ "title": "Ask HN: Who is hiring? (October 2026)",
+ "author": "whoishiring",
+ "created_at_i": 1790866927,
+ "type": "story",
+ "children": [
+  {
+   "id": 49922609,
+   "author": "mcintyem",
+   "text": "Sidekick Labs | Senior SWE, R&amp;D Engineer, Intelligence Engineer | REMOTE (US Timezones) | Full-time | $170k to $230k Base + Equity + Health<p>Sidekick builds AI security software for enterprises. Our sensors observe AI behavior and use in situ. From those observations, our reasoning pipeline produces an application inventory and a risk picture, allowing us to provide real-time intervention and coaching right when it matters.<p><i>Compensation:</i> base salary scaled to experience, meaningful early-stage equity, and 100% covered health insurance for you and your immediate family<p>We are a highly senior team. Most of us have been founders or on early founding teams, so we operate with high ownership. We expect you to have a real, current AI-assisted development practice. Our system spans several languages, and we expect you to use AI tools to quickly navigate unfamiliar parts of the codebase so you can comfortably own problems end-to-end across a broad stack.<p>We are hiring for three roles:<p>- <i>Senior Software Engineer:</i> You will work across our event-driven architecture. You&#x27;ll write Go and Python backend services and touch endpoint-deployed browser and desktop components. You need to be comfortable developing in a multi-tenant, microservice-driven SaaS architecture and understand typical scale and security implications for such products.<p>- <i>R&amp;D Engineer:</i> This is not an open-ended research function. You will take ambiguous feasibility questions tied to our roadmap and return defensible answers inside a week. You&#x27;ll build handoff-ready prototypes, then shift into engineering mode to personally drive them through to production. You will also define operational envelopes and degradation boundaries, and rigorously deprecate infeasible ideas with documented rationale to avoid future re-litigation.<p>- <i>Intelligence and Data Processing Engineer:</i> This role is for someone who loves real browser and desktop forensics. You&#x27;ll use dev tools and debuggers as your primary instruments. Expect to be reading minified code to find where state lives and analyzing network logs to understand undocumented APIs. You will figure out how AI products work and build the prototyping and automation to maintain our software inventory.<p><i>To apply:</i><p>[Edited 10&#x2F;25, to reflect our new hiring process]<p>Send an email to hiring@sidekicklabs.com with the role in the subject. Include a PDF of your resume, a quick sentence or two about a tough technical problem you&#x27;ve solved recently, and links to your GitHub, personal site, and&#x2F;or LinkedIn.<p>I&#x27;m Eric, VP of Technology. You can view my background here: <a href=\"https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;three-two-one\" rel=\"nofollow\">https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;three-two-one</a><p><a href=\"https:&#x2F;&#x2F;sidekicklabs.com\" rel=\"nofollow\">https:&#x2F;&#x2F;sidekicklabs.com</a>",
+   "created_at_i": 1790867016,
+   "parent_id": 49922569,
+   "story_id": 49922569,
+   "type": "comment",
+   "children": []
+  },
+  {
+   "id": 49922615,
+   "author": "eterps",
+   "text": "Open Education Applications &#x2F; Neon | Senior&#x2F;Lead Platform &amp; DevOps Engineer, Senior Frontend Engineer, Senior Full-Stack Engineer | Utrecht, The Netherlands | HYBRID | DUTCH REQUIRED<p>Please note: working proficiency in Dutch is strictly required for these roles, and we kindly ask for no automated applications. The rest of this post will continue in Dutch.<p>Wij zijn een non-profit die zich inzet om lesmateriaal voor scholen beter, betaalbaarder en flexibeler te maken, in zowel digitale als gedrukte vorm.<p>Werktijden en kantoordagen zijn flexibel en worden in overleg bepaald op basis van de rol. Wij bieden een competitief salaris.<p>Technologiestack: Git monorepo, TypeScript, Yjs en React, een beetje Python, OpenTofu&#x2F;Terraform, Scaleway, managed PostgreSQL en managed Kubernetes.<p>Openstaande rollen:<p>- Senior&#x2F;Lead Platform &amp; DevOps Engineer<p>- Senior Backend Engineer&#x2F;Architect<p>- Senior Frontend Engineer<p>- Senior Full-Stack Engineer<p>E-mail jobs[at]openeducation.foundation met (HN) + de functienaam in het onderwerp, samen met een korte introductie en een link naar je LinkedIn-profiel en&#x2F;of GitHub. Als er van beide kanten een goede match lijkt te zijn, plan ik graag een kennismakingsgesprek in.<p><a href=\"https:&#x2F;&#x2F;openeducation.foundation\" rel=\"nofollow\">https:&#x2F;&#x2F;openeducation.foundation</a> | <a href=\"https:&#x2F;&#x2F;www.neon.nl\" rel=\"nofollow\">https:&#x2F;&#x2F;www.neon.nl</a>",
+   "created_at_i": 1790867049,
+   "parent_id": 49922569,
+   "story_id": 49922569,
+   "type": "comment",
+   "children": []
+  },
+  {
+   "id": 49922621,
+   "author": "kcartmell",
+   "text": "Snout <a href=\"https:&#x2F;&#x2F;snout.com&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;snout.com&#x2F;</a> | Multiple Engineering + Product Roles | Remote US or Ontario, Canada | Full Time<p>Join us at Snout on our mission to ensure no one ever has to make a health decision for their pet based on the cash in their bank account. Snout plans pay for 100% of routine veterinary care, unlimited visits, and additional member benefits - think pet insurance, that you will actually use every year.<p>We&#x27;re growing the team and hiring across the board. Featured role this month:<p>Founding Data Engineer - be our first data hire: make sense of hundreds of millions of rows from vet practice-management systems and our own app, and turn our Postgres and dbt warehouse into a foundation the whole company trusts.<p>Our tech stack includes Node.js, React, PostgreSQL, AWS, Tailwind, and Python. We use both JavaScript and TypeScript heavily. Our team uses LLM-based tooling day to day, but we&#x27;re fundamentally a human-centric team, and our product itself does not heavily feature AI components.<p>Apply at <a href=\"https:&#x2F;&#x2F;jobs.gem.com&#x2F;snout\" rel=\"nofollow\">https:&#x2F;&#x2F;jobs.gem.com&#x2F;snout</a>",
+   "created_at_i": 1790867061,
+   "parent_id": 49922569,
+   "story_id": 49922569,
+   "type": "comment",
+   "children": [
+    {
+     "id": 49926087,
+     "author": "user-",
+     "text": "Not an hiring related question (i did apply though).<p>Just curious , is Snout planning on expanding its service to Canada at all?",
+     "created_at_i": 1790883265,
+     "parent_id": 49922621,
+     "story_id": 49922569,
+     "type": "comment",
+     "children": []
+    }
+   ]
+  },
+  {
+   "id": 49922584,
+   "author": "mwest1066",
+   "text": "PrairieLearn (Remote US) \u2014 Full-Stack Software Engineer \u2014 TypeScript &#x2F; Postgres &#x2F; React &#x2F; AI<p>PrairieLearn (<a href=\"https:&#x2F;&#x2F;www.prairielearn.com\" rel=\"nofollow\">https:&#x2F;&#x2F;www.prairielearn.com</a>) is an open-source assessment platform used by universities across the US (Berkeley, Princeton, Michigan, Illinois, and others). We power mastery-based learning and large-scale exams.<p>We\u2019re a small, profitable, early-stage company (bootstrapped, no VC) that is growing quickly. Our users love us and we have very high retention and rapid spread through word of mouth. As an early-stage hire, you\u2019ll work across the stack and enjoy meaningful ownership from day one.<p>Tech we use: Node.js &#x2F; TypeScript backend, Postgres, AWS, React. We\u2019re also developing AI tooling, including LLM agents to help instructors create content, and vision-language models to help grade student work. PrairieLearn is open core: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;PrairieLearn&#x2F;PrairieLearn\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;PrairieLearn&#x2F;PrairieLearn</a><p>Details:<p>- Location: Remote (US only)<p>- Salary: $100k-$180k depending on experience<p>- Benefits: Stock options (0.5% - 1.5%), unlimited PTO, flexible hours<p>- Role: Full-time. (We\u2019re not able to sponsor visas at this time.)<p>Apply at <a href=\"https:&#x2F;&#x2F;www.prairielearn.com&#x2F;jobs-ashby?utm_source=YeEJ5MAKkr&amp;ashby_jid=ee6fdbc3-1c3a-4fa3-bb3f-13ddab449baf\" rel=\"nofollow\">https:&#x2F;&#x2F;www.prairielearn.com&#x2F;jobs-ashby?utm_source=YeEJ5MAKk...</a>",
+   "created_at_i": 1790866957,
+   "parent_id": 49922569,
+   "story_id": 49922569,
+   "type": "comment",
+   "children": [
+    {
+     "id": 49928484,
+     "author": "cebert",
+     "text": "It\u2019s fantastic to have a university professor involved in this project.",
+     "created_at_i": 1790899981,
+     "parent_id": 49922584,
+     "story_id": 49922569,
+     "type": "comment",
+     "children": []
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "author": null,
+   "text": null,
+   "created_at_i": 1790866987,
+   "parent_id": 49922569,
+   "story_id": 49922569,
+   "type": "comment",
+   "children": []
+  }
+ ]
+}

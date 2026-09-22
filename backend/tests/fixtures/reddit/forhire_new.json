@@ -1,0 +1,20 @@
+{
+  "note": "Hand-written to match the attributes PRAW Submission objects expose (no recorded Reddit data).",
+  "forhire": [
+    {"id": "1abc01", "title": "[HIRING] Python/FastAPI backend developer, remote, $40-60/hr",
+     "selftext": "Building a data platform.\n\nNeed 20h/week. DM me with your portfolio.",
+     "permalink": "/r/forhire/comments/1abc01/hiring_pythonfastapi_backend_developer/",
+     "author": "startup_founder", "created_utc": 1792000000, "subreddit": "forhire",
+     "link_flair_text": "Hiring"},
+    {"id": "1abc02", "title": "[FOR HIRE] Django developer available", "selftext": "",
+     "permalink": "/r/forhire/comments/1abc02/for_hire_django_developer_available/",
+     "author": null, "created_utc": 1792003600, "subreddit": "forhire", "link_flair_text": "For Hire"}
+  ],
+  "developersIndia": [
+    {"id": "1abc03", "title": "Our team is hiring a GenAI intern (Bengaluru)",
+     "selftext": "Stipend 25k. Apply at careers@example.com",
+     "permalink": "/r/developersIndia/comments/1abc03/our_team_is_hiring_a_genai_intern/",
+     "author": "hr_person", "created_utc": 1791990000, "subreddit": "developersIndia",
+     "link_flair_text": null}
+  ]
+}
