@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 
 from app.api.captures import router as captures_router
 from app.api.health import router as health_router
+from app.api.leads import router as leads_router
 from app.core.config import get_settings
 from app.core.logging import configure_logging
 from app.db.session import make_session_factory
@@ -47,4 +48,5 @@ def create_app() -> FastAPI:
     app.middleware("http")(request_id_middleware)
     app.include_router(health_router, prefix="/api")
     app.include_router(captures_router, prefix="/api")
+    app.include_router(leads_router, prefix="/api")
     return app

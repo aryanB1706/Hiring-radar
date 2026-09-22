@@ -1,9 +1,11 @@
 """Tiny helpers that insert valid rows so each test only spells out what it cares about."""
 
+import datetime as dt
 import uuid
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.text import content_hash
 from app.db.enums import AgentRole, LeadType, PartyKind, SourceKind
 from app.db.models import AgentIdentity, Lead, Party, Post, Source
 
@@ -15,13 +17,21 @@ async def make_source(s: AsyncSession, name: str | None = None) -> Source:
     return source
 
 
-async def make_post(s: AsyncSession, source: Source, external_id: str | None = None) -> Post:
+async def make_post(
+    s: AsyncSession,
+    source: Source,
+    external_id: str | None = None,
+    *,
+    text: str = "We are hiring a Python developer",
+    posted_at: dt.datetime | None = None,
+) -> Post:
     post = Post(
         source_id=source.id,
         external_id=external_id or uuid.uuid4().hex,
         url="https://example.com/post",
-        raw_text="We are hiring a Python developer",
-        content_hash="0" * 64,
+        raw_text=text,
+        content_hash=content_hash(text),
+        posted_at=posted_at,
     )
     s.add(post)
     await s.flush()

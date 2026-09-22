@@ -11,6 +11,7 @@ from pathlib import Path
 import pytest
 from alembic import command
 from alembic.config import Config
+from httpx import ASGITransport, AsyncClient
 from redis.asyncio import Redis
 from redis.exceptions import RedisError
 from sqlalchemy import create_engine, text
@@ -20,6 +21,8 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 from sqlalchemy.pool import NullPool
 
 from app.core.config import get_settings
+from app.db.session import get_session
+from app.main import create_app
 
 ALEMBIC_INI = Path(__file__).resolve().parent.parent / "alembic.ini"
 
@@ -101,3 +104,16 @@ async def redis_client() -> AsyncIterator[Redis]:
 def key_prefix() -> str:
     """A unique Redis key prefix per test, so tests never share limiter/cache state."""
     return f"test:{uuid.uuid4().hex}:"
+
+
+@pytest.fixture
+async def client(session: AsyncSession) -> AsyncIterator[AsyncClient]:
+    """The real app, with its DB dependency swapped for the rolled-back test session."""
+    app = create_app()
+
+    async def use_test_session() -> AsyncIterator[AsyncSession]:
+        yield session
+
+    app.dependency_overrides[get_session] = use_test_session
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
+        yield c

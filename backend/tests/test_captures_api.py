@@ -1,27 +1,11 @@
-from collections.abc import AsyncIterator
-
 import pytest
-from httpx import ASGITransport, AsyncClient
+from httpx import AsyncClient
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.enums import SourceKind
 from app.db.models import Post, Source
-from app.db.session import get_session
-from app.main import create_app
 from app.schemas.captures import MAX_CSV_BYTES, MAX_CSV_ROWS
-
-
-@pytest.fixture
-async def client(session: AsyncSession) -> AsyncIterator[AsyncClient]:
-    app = create_app()
-
-    async def use_test_session() -> AsyncIterator[AsyncSession]:
-        yield session
-
-    app.dependency_overrides[get_session] = use_test_session
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
-        yield c
 
 
 async def stored(session: AsyncSession, url: str) -> tuple[Post, Source]:

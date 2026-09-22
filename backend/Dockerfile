@@ -1,9 +1,12 @@
 FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    HF_HOME=/home/app/.cache/huggingface
 
-RUN useradd --create-home --uid 1000 app
+RUN useradd --create-home --uid 1000 app \
+    && mkdir -p /home/app/.cache/huggingface \
+    && chown -R app:app /home/app/.cache
 WORKDIR /app
 
 COPY requirements.txt requirements-dev.txt ./

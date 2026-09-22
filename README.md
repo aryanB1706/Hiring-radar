@@ -46,6 +46,20 @@ make up COMPOSE=docker-compose                              # also starts a Cele
 
 Reddit needs `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` (read-only app, https://www.reddit.com/prefs/apps) in `.env`.
 
+## Classifier
+
+Posts become structured leads (type, role, skills, company, location, budget, urgency, contact, confidence, a verified evidence
+quote). Cheap rules skip obvious noise first; the fast Gemini model does the rest; near-duplicate leads are linked (never deleted)
+via local embeddings + pgvector.
+
+```bash
+cd backend
+.venv/bin/python -m app.jobs.classify --limit 50 --show   # classify posts that have no lead yet (uses your Gemini quota)
+curl 'localhost:8000/api/leads?skill=python&min_confidence=0.8&limit=5'
+curl localhost:8000/api/leads/<id>
+```
+The first run downloads the embedding model (~90 MB). `pytest -m model` runs the test that loads it for real.
+
 ## LLM gateway
 
 All model access goes through `LLMClient` (`backend/app/llm/`); business code never imports a provider SDK.

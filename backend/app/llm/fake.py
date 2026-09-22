@@ -61,7 +61,15 @@ class FakeLLMClient(LLMClient):
         tier: ModelTier = ModelTier.DEFAULT,
         budget: Budget | None = None,
     ) -> LLMResult:
-        self.calls.append({"kind": "text", "prompt": prompt, "system": system, "purpose": purpose})
+        self.calls.append(
+            {
+                "kind": "text",
+                "prompt": prompt,
+                "system": system,
+                "purpose": purpose,
+                "tier": tier.value,
+            }
+        )
         reply = self._next(prompt)
         if isinstance(reply, Exception):
             raise reply
@@ -85,6 +93,7 @@ class FakeLLMClient(LLMClient):
                 "system": system,
                 "purpose": purpose,
                 "schema": schema.__name__,
+                "tier": tier.value,
             }
         )
         reply = self._next(prompt)

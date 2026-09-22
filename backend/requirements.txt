@@ -1,3 +1,4 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
 fastapi==0.162.0
 uvicorn==0.54.0
 pydantic==2.14.1
@@ -14,3 +15,5 @@ celery==5.6.3
 praw==8.0.3
 feedparser==6.0.14
 beautifulsoup4==4.15.0
+torch==2.15.0
+sentence-transformers==6.2.0

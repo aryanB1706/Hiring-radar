@@ -6,6 +6,7 @@ import httpx
 
 from app.core.config import get_settings
 from app.jobs.celery_app import celery_app
+from app.jobs.classify import run_classify_batch
 from app.jobs.runner import pollable_source_ids, run_ingest, runtime
 
 
@@ -32,3 +33,11 @@ def ingest_all_sources() -> list[str]:
     for source_id in queued:
         ingest_source.delay(source_id)
     return queued
+
+
+@celery_app.task(name="app.jobs.tasks.classify_pending_posts")
+def classify_pending_posts(batch_size: int = 50) -> dict[str, int]:
+    """Classify posts that have no lead yet. Not on the beat schedule: it spends LLM quota, so
+    it is triggered on purpose (CLI or `celery call`)."""
+    summary = asyncio.run(run_classify_batch(get_settings(), batch_size))
+    return {k: v for k, v in asdict(summary).items() if k != "leads"}

@@ -41,6 +41,10 @@ class Settings(BaseSettings):
     subreddits: str = "forhire,hiring,developersIndia,remotepython"  # comma-separated
     ingest_interval_hours: float = 6.0
 
+    # Classifier / embeddings
+    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"  # 384 dims, matches the schema
+    dedupe_threshold: float = 0.08  # max cosine distance for "same job"; tune with the evals
+
     @property
     def subreddit_list(self) -> list[str]:
         names = (name.strip().removeprefix("r/") for name in self.subreddits.split(","))
