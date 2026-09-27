@@ -1,0 +1,1 @@
+"""Hiring Radar backend package."""
