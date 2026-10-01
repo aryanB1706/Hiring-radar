@@ -5,6 +5,7 @@ from enum import StrEnum
 
 class SourceKind(StrEnum):
     HN = "hn"
+    RSS = "rss"
     REDDIT = "reddit"
     MANUAL_PASTE = "manual_paste"
     CSV_IMPORT = "csv_import"

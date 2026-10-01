@@ -75,7 +75,8 @@ class Post(Base):
     __tablename__ = "post"
     __table_args__ = (
         UniqueConstraint("source_id", "external_id", name="uq_post_source_external_id"),
-        Index("ix_post_content_hash", "content_hash"),
+        Index("uq_post_content_hash", "content_hash", unique=True),
+        Index("uq_post_url", "url", unique=True),
         Index("ix_post_posted_at", "posted_at"),
     )
 
@@ -84,6 +85,7 @@ class Post(Base):
         UUID(as_uuid=True), ForeignKey("source.id", ondelete="CASCADE"), nullable=False
     )
     external_id: Mapped[str] = mapped_column(String(255), nullable=False)
+    title: Mapped[str | None] = mapped_column(String(500), nullable=True)
     url: Mapped[str] = mapped_column(Text, nullable=False)
     author_handle: Mapped[str | None] = mapped_column(String(255), nullable=True)
     raw_text: Mapped[str] = mapped_column(Text, nullable=False)

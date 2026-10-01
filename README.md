@@ -8,7 +8,7 @@ Python, Backend, and GenAI developer roles, internships, and freelance gigs (Ind
 ## Tech Stack
 - **Backend**: Python 3.12, FastAPI, Pydantic v2, SQLAlchemy 2.x, psycopg v3, structlog, httpx
 - **Database**: PostgreSQL 16 (plain image, no pgvector)
-- **Agent Framework**: LangChain, LangGraph (with Google Gemini API on free tier)
+- **Agent Framework**: LangChain, LangGraph, `langchain-groq` (Groq API)
 - **Tooling**: Docker Compose, pytest, ruff, make
 
 ## Prerequisites

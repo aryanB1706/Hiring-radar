@@ -30,6 +30,9 @@ services:
       APP_ENV: ${APP_ENV:-development}
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/hiring_radar
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-120b}
+      RSS_FEEDS: ${RSS_FEEDS:-https://weworkremotely.com/categories/remote-programming-jobs.rss,https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss}
     depends_on:
       postgres:
         condition: service_healthy

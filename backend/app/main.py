@@ -7,6 +7,8 @@ import structlog
 from fastapi import FastAPI, Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
+from app.api.collect import router as collect_router
+from app.api.groq import router as groq_router
 from app.api.health import router as health_router
 from app.core.config import get_settings
 from app.core.logging import get_logger, setup_logging
@@ -50,6 +52,8 @@ def create_app() -> FastAPI:
 
     app.add_middleware(RequestIdMiddleware)
     app.include_router(health_router)
+    app.include_router(groq_router)
+    app.include_router(collect_router)
 
     return app
 
