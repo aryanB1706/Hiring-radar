@@ -7,7 +7,7 @@ Python, Backend, and GenAI developer roles, internships, and freelance gigs (Ind
 
 ## Tech Stack
 - **Backend**: Python 3.12, FastAPI, Pydantic v2, SQLAlchemy 2.x, psycopg v3, structlog, httpx
-- **Database**: PostgreSQL 16 (plain image, no pgvector)
+- **Database**: PostgreSQL 16 with pgvector for similar-job search
 - **Agent Framework**: LangChain, LangGraph, `langchain-groq` (Groq API)
 - **Tooling**: Docker Compose, pytest, ruff, make
 
@@ -50,6 +50,10 @@ Python, Backend, and GenAI developer roles, internships, and freelance gigs (Ind
    make lint
    make test
    ```
+
+## pgvector
+
+Docker Compose and CI use the `pgvector/pgvector:pg16` image. For a native PostgreSQL 16 install, install the pgvector extension before running `alembic upgrade head`. Migration `20261115_0004` enables the extension and creates the `job_embedding` table used by `search_similar_jobs`.
 
 ## Data Model
 

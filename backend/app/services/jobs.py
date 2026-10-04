@@ -10,7 +10,12 @@ from app.db.models import Lead, Post
 from app.llm.classifier import JobClassification
 
 
-def save_classification(db: Session, post: Post, result: JobClassification) -> Lead:
+def save_classification(
+    db: Session,
+    post: Post,
+    result: JobClassification,
+    score: float | None = None,
+) -> Lead:
     """Create or update the lead row for one classified signal."""
     lead = db.scalar(select(Lead).where(Lead.post_id == post.id))
     if lead is None:
@@ -28,6 +33,8 @@ def save_classification(db: Session, post: Post, result: JobClassification) -> L
     lead.location = result.location
     lead.application_url = _application_url(result, post)
     lead.confidence = result.confidence
+    if score is not None:
+        lead.score = score
     lead.status = LeadStatus.QUALIFIED if result.is_hiring else LeadStatus.REJECTED
     lead.classified_at = datetime.now(UTC)
     lead.prompt_version = "v1"
