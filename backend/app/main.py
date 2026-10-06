@@ -11,6 +11,8 @@ from app.api.classify import router as classify_router
 from app.api.collect import router as collect_router
 from app.api.groq import router as groq_router
 from app.api.health import router as health_router
+from app.api.jobs import router as jobs_router
+from app.api.users import router as users_router
 from app.core.config import get_settings
 from app.core.logging import get_logger, setup_logging
 
@@ -56,6 +58,8 @@ def create_app() -> FastAPI:
     app.include_router(groq_router)
     app.include_router(collect_router)
     app.include_router(classify_router)
+    app.include_router(users_router)
+    app.include_router(jobs_router)
 
     return app
 
