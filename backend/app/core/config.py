@@ -21,6 +21,7 @@ class Settings(BaseSettings):
         "https://weworkremotely.com/categories/remote-programming-jobs.rss,"
         "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"
     )
+    JOB_MATCH_SIMILARITY_THRESHOLD: float = 0.30
 
     model_config = SettingsConfigDict(
         env_file=(".env", "../.env"),

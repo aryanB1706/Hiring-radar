@@ -282,7 +282,7 @@ def save_job_node(state: JobWorkflowState) -> dict[str, Any]:
             )
 
             try:
-                index_job(db, lead, result)
+                index_job(db, lead, result, description=post.raw_text)
             except Exception as exc:
                 logger.warning(
                     "job_embedding_index_failed",

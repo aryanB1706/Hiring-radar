@@ -76,7 +76,9 @@ def test_workflow_saves_qualified_job(db_session, monkeypatch) -> None:
     )
     monkeypatch.setattr(
         "app.workflows.job_workflow.index_job",
-        lambda db, lead, result: indexed.update({"lead_id": lead.id}),
+        lambda db, lead, result, description=None: indexed.update(
+            {"lead_id": lead.id, "description": description}
+        ),
     )
 
     state = run_job_workflow(post.id)
@@ -97,6 +99,7 @@ def test_workflow_saves_qualified_job(db_session, monkeypatch) -> None:
     assert lead.score == state["qualification_score"]
     assert lead.company_name == "Acme"
     assert indexed["lead_id"] == lead.id
+    assert indexed["description"] == post.raw_text
 
 
 def test_workflow_ends_for_non_hiring_post(db_session, monkeypatch) -> None:
@@ -169,7 +172,7 @@ def test_workflow_retries_temporary_llm_failure(db_session, monkeypatch) -> None
     monkeypatch.setattr("app.workflows.job_workflow.time.sleep", lambda seconds: None)
     monkeypatch.setattr(
         "app.workflows.job_workflow.index_job",
-        lambda db, lead, result: None,
+        lambda db, lead, result, description=None: None,
     )
 
     state = run_job_workflow(post.id)
